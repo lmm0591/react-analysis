@@ -100,7 +100,10 @@ function getDefaultValuesFromProps(
       let loc = propertyPath.get('value', 'loc')
       if (defaultValue) {
         propDescriptor.defaultValue = defaultValue;
-        propDescriptor.loc = loc
+        propDescriptor.valueRange = {
+          start: loc.value.start, 
+          end: loc.value.end,
+        }
       }
     });
 }
@@ -114,8 +117,7 @@ export default function defaultPropsHandler(
   if (isStatelessComponent(componentDefinition)) {
     statelessProps = getStatelessPropsPath(componentDefinition);
   }
-  console.log('documentation')
-  console.log(JSON.stringify(documentation))
+
   // Do both statelessProps and defaultProps if both are available so defaultProps can override
   if (statelessProps && types.ObjectPattern.check(statelessProps.node)) {
     getDefaultValuesFromProps(statelessProps.get('properties'), documentation, true);
@@ -123,6 +125,4 @@ export default function defaultPropsHandler(
   if (defaultPropsPath && types.ObjectExpression.check(defaultPropsPath.node)) {
     getDefaultValuesFromProps(defaultPropsPath.get('properties'), documentation, false);
   }
-  console.log('documentation-end')
-  console.log(JSON.stringify(documentation))
 }

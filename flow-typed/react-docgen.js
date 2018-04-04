@@ -43,17 +43,15 @@ type FlowTypeDescriptor = {
   signature?: flowObjectSignatureType | flowFunctionSignatureType,
   alias?: string,
 };
-type DocumentLoc = {
-  column: number,
-  line: number
-}
+
+
 type PropDescriptor = {
   type?: PropTypeDescriptor,
   flowType?: FlowTypeDescriptor,
   required?: boolean,
   defaultValue?: any,
   description?: string,
-  loc: DocumentLoc
+	valueRange: any,
 };
 
 type Handler = (documentation: Documentation, path: NodePath) => void;
