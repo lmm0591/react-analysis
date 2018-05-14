@@ -91,7 +91,7 @@ describe('resolveToValue', () => {
       .toBe('FunctionDeclaration');
   });
 
-  describe('assignments', () => {
+  xdescribe('assignments', () => {
     it('resolves to assigned values', () => {
       var path = parse([
         'var foo;',
@@ -107,10 +107,10 @@ describe('resolveToValue', () => {
 
     it('resolves default import references to the import declaration', () => {
       var path = parse([
-        'import foo from "Foo"',
+        'import foo, {a, b} from "../../Foo"',
         'foo;',
       ].join('\n'));
-
+      console.log(resolveToValue(path))
       expect(resolveToValue(path).node.type).toBe('ImportDeclaration');
     });
 
@@ -143,7 +143,7 @@ describe('resolveToValue', () => {
 
   });
 
-  describe('MemberExpression', () => {
+  xdescribe('MemberExpression', () => {
 
     it('resolves a MemberExpression to it\'s init value', () => {
       var path = parse([

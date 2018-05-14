@@ -26,6 +26,7 @@ var defaultHandlers = [
   handlers.displayNameHandler,
   handlers.componentMethodsHandler,
   handlers.componentMethodsJsDocHandler,
+  handlers.renderHandler,
 ];
 
 /**

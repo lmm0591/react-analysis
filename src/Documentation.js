@@ -14,15 +14,21 @@ class Documentation {
   _props: Object;
   _composes: Set<string>;
   _data: Object;
+  _jsxElements: Set<JSXElement>;
 
   constructor() {
     this._props = new Map();
     this._composes = new Set();
     this._data = new Map();
+    this._jsxElements = new Set();
   }
 
   addComposes(moduleName: string) {
     this._composes.add(moduleName);
+  }
+
+  addJSXElement(jsxElement: JSXElement) {
+    this._jsxElements.add(jsxElement);
   }
 
   set(key: string, value: any) {
@@ -59,6 +65,10 @@ class Documentation {
 
     if (this._composes.size > 0) {
       obj.composes = Array.from(this._composes);
+    }
+
+    if (this._jsxElements.size > 0) {
+      obj.jsxElements = Array.from(this._jsxElements);
     }
     return obj;
   }

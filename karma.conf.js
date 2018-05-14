@@ -49,14 +49,19 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     preprocessors: {
-      './src/handlers/__tests__/defaultPropsHandler-test.js': ['webpack', 'sourcemap'],
+      './src/handlers/__tests__/renderHandler-test.js': ['webpack', 'sourcemap'],
+      // './src/resolver/__tests__/findAllComponentDefinitions-test.js': ['webpack', 'sourcemap'],
+      // './src/utils/__tests__/resolveToValue-test.js': ['webpack', 'sourcemap'],
+      
     },
     
     // list of files / patterns to load in the browser
     // list of files / patterns to load in the browser
     files: [
       // 'test/libs/helpers.js',
-      './src/handlers/__tests__/defaultPropsHandler-test.js',
+      './src/handlers/__tests__/renderHandler-test.js',
+      // './src/resolver/__tests__/findAllComponentDefinitions-test.js',
+      // './src/utils/__tests__/resolveToValue-test.js',
     ],
     // list of files to exclude
     exclude: [

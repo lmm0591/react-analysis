@@ -42,3 +42,15 @@ type Recast = {
   parse: (src: string) => ASTNode;
   print: (path: NodePath) => {code: string};
 };
+
+declare class JSXElement {
+  type: string;
+  start: number;
+  end: number;
+  children: Array;
+  loc: {
+    start: {column: number, line: number},
+    end: {column: number, line: number},
+  },
+  openingElement: ?Object;
+}
