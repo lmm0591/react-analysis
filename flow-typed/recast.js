@@ -44,13 +44,19 @@ type Recast = {
 };
 
 declare class JSXElement {
+  elementName: ?string;
+  isStaticElement: ?bool;
+  importPath: ?string;
   type: string;
-  start: number;
-  end: number;
+  start: ?number;
+  end: ?number;
   children: Array;
   loc: {
     start: {column: number, line: number},
     end: {column: number, line: number},
   },
-  openingElement: ?Object;
+  openingElement: {
+    attributes: Array;
+    name: Object;
+  };
 }

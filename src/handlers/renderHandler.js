@@ -11,53 +11,41 @@
  */
 
 import type Documentation from '../Documentation';
-
 import getMemberValuePath from '../utils/getMemberValuePath';
-// import getNameOrValue from '../utils/getNameOrValue';
-// import recast from 'recast';
-// import resolveToValue from '../utils/resolveToValue';
+import getImportPath from '../utils/getImportPath';
 import resolveFunctionDefinitionToReturnValue from '../utils/resolveFunctionDefinitionToReturnValue';
 
 // TODO: 罗列出静态的元素
 var staticElementReg = /(div|span|label|xxxx)/
 
-function JSXElementParse(jsxElement: JSXElement, result: Array) {
+function JSXElementParse(jsxElement: JSXElement,path: NodePath, result: Array<JSXElement>) {
   if (jsxElement.openingElement) {
     const elementName = jsxElement.openingElement.name.name;
-    let value =  {
-      elementName,
-      loc: {
-        start: jsxElement.loc.start,
-        end: jsxElement.loc.end,
-      },
-      type: jsxElement.type,
-      isStaticElement: staticElementReg.test(elementName),
-      attributes: jsxElement.openingElement.attributes,
-    }
-    result.push(value)
+    const isStaticElement = staticElementReg.test(elementName)
+    jsxElement.elementName = elementName
+    jsxElement.isStaticElement = isStaticElement
+    jsxElement.importPath = isStaticElement ? null : getImportPath(path, elementName)
+
+    result.push(jsxElement)
     jsxElement.children.forEach(jsxElement => { 
-      JSXElementParse(jsxElement, result)
+      JSXElementParse(jsxElement, path, result)
     })
   }
 }
 
 // const {types: {namedTypes: types}} = recast;
-function getJSXElements(jsxElement: JSXElement): [JSXElement] { 
-  console.log('getJSXElements');
-  console.log(jsxElement);
-  let result = [];
-  JSXElementParse(jsxElement, result);
+function getJSXElements(jsxElement: JSXElement, path: NodePath): Array<JSXElement> { 
+  let result: Array<JSXElement> = [];
+  JSXElementParse(jsxElement, path, result);
   return result;
 }
+
 export default function renderHandler(
   documentation: Documentation,
   path: NodePath
 ) {
-  let renderPath = getMemberValuePath(path, 'render');
-  console.log('render')
-  console.log(renderPath)
+  let renderPath: NodePath = getMemberValuePath(path, 'render');
   let elements = resolveFunctionDefinitionToReturnValue(renderPath).node
-  console.log(elements)
-  let jsxElements = getJSXElements(elements)
+  let jsxElements = getJSXElements(elements, path)
   jsxElements.forEach(jsxElement => documentation.addJSXElement(jsxElement))
 }
