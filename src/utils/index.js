@@ -41,4 +41,7 @@ export {default as normalizeClassDefiniton} from './normalizeClassDefinition'; /
 export {default as printValue} from './printValue';
 export {default as resolveExportDeclaration} from './resolveExportDeclaration';
 export {default as resolveToModule} from './resolveToModule';
-export {default as resolveToValue} from './resolveToValue';
+export { default as resolveToValue } from './resolveToValue';
+export { default as resolveFunctionDefinitionToReturnValue } from './resolveFunctionDefinitionToReturnValue';
+
+

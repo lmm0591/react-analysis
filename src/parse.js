@@ -18,9 +18,10 @@ import recast from 'recast';
 
 var ERROR_MISSING_DEFINITION = 'No suitable component definition found.';
 
-function executeHandlers(handlers, componentDefinitions) {
+function executeHandlers(handlers, componentDefinitions, ast) {
   return componentDefinitions.map(componentDefinition => {
     var documentation = new Documentation();
+    documentation.set('ast', ast)
     handlers.forEach(handler => handler(documentation, componentDefinition));
     return postProcessDocumentation(documentation.toObject());
   });
@@ -58,9 +59,9 @@ export default function parse(
     if (componentDefinitions.length === 0) {
       throw new Error(ERROR_MISSING_DEFINITION);
     }
-    return executeHandlers(handlers, componentDefinitions);
+    return executeHandlers(handlers, componentDefinitions, ast);
   } else if (componentDefinitions) {
-    return executeHandlers(handlers, [(componentDefinitions: NodePath)])[0];
+    return executeHandlers(handlers, [(componentDefinitions: NodePath)], ast)[0];
   }
 
   throw new Error(ERROR_MISSING_DEFINITION);

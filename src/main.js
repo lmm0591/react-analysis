@@ -11,9 +11,12 @@
  */
 
 import * as handlers from './handlers';
+import operation from './operation';
 import parse from './parse';
 import * as resolver from './resolver';
 import * as utils from './utils';
+import babylon from './babylon';
+import recast from 'recast';
 
 var defaultResolver = resolver.findExportedComponentDefinition;
 var defaultHandlers = [
@@ -56,10 +59,16 @@ function defaultParse( // eslint-disable-line no-unused-vars
   return parse(src, resolver, handlers);
 }
 
+function getAST (src: string) { 
+  return recast.parse(src, {esprima: babylon});
+}
+
 export {
   defaultParse as parse,
   defaultHandlers,
   handlers,
+  operation,
   resolver,
   utils,
+  getAST,
 };

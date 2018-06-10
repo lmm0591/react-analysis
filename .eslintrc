@@ -7,7 +7,8 @@
     "quotes": ["error", "single", "avoid-escape"],
     "strict": 0,
     "no-unused-vars": "error",
-    "no-undef": "error"
+    "no-undef": "error",
+    "no-console": 0
   },
   "env": {
     "node": true,
@@ -15,6 +16,13 @@
   },
   "globals": {
     "ASTNode": true,
+    "console": true,
+    "window": true,
+    "describe": true,
+    "beforeEach": true,
+    "it": true,
+    "xdescribe": true,
+    "xit": true,
     "FlowTypeDescriptor": true,
     "Handler": true,
     "NodePath": true,
