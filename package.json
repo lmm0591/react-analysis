@@ -1,6 +1,6 @@
 {
   "name": "react-analysis",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "解析 react 语法",
   "files": [
     "dist"
